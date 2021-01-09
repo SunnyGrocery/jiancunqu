@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sust.jiancunqu.mapper.UserMapper">
+
+    <select id="selectAll" resultType="User">
+        select *
+        from user
+    </select>
+    <select id="selectById" resultType="User">
+        select *
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="selectByName" resultType="User">
+        select *
+        from user
+        where name = #{name}
+    </select>
+
+    <insert id="insert">
+        insert into user(
+        <if test="id!=null and id!=''">
+            id,
+        </if>
+        <if test="name!=null and name!=''">
+            name,
+        </if>
+        <if test="pwd!=null and pwd!=''">
+            pwd,
+        </if>
+        <if test="realIdNum!=null and realIdNum!=''">
+            real_id_num,
+        </if>
+        <if test="phoneNum!=null and phoneNum!=''">
+            phone_num,
+        </if>
+        <if test="available!=null and available!=''">
+            available
+        </if>
+        )values (
+        <if test="id!=null and id!=''">
+            #{id},
+        </if>
+        <if test="name!=null and name!=''">
+            #{name},
+        </if>
+        <if test="pwd!=null and pwd!=''">
+            #{pwd},
+        </if>
+        <if test="realIdNum!=null and realIdNum!=''">
+            #{realIdNum},
+        </if>
+        <if test="phoneNum!=null and phoneNum!=''">
+            #{phoneNum},
+        </if>
+        <if test="available!=null and available!=''">
+            #{available}
+        </if>
+        )
+    </insert>
+
+    <update id="update">
+        update user
+        <set>
+            <if test="name!=null and name!=''">
+                name = #{name},
+            </if>
+            <if test="pwd!=null and pwd!=''">
+                pwd = #{pwd},
+            </if>
+            <if test="real_id_num!=null and real_id_num!=''">
+                real_id_num = #{realIdNum},
+            </if>
+            <if test="volume!=null and volume!=''">
+                volume = #{volume},
+            </if>
+            <if test="available!=null and available!=''">
+                available = #{available},
+            </if>
+            id = #{id}
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+
+</mapper>

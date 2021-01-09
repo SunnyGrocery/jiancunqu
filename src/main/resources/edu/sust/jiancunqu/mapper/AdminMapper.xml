@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.sust.jiancunqu.mapper.AdminMapper">
+
+    <select id="selectAll" resultType="Admin">
+        select *
+        from ADMIN
+    </select>
+    <select id="selectById" resultType="Admin">
+        select *
+        from ADMIN
+        where id = #{id}
+    </select>
+    <select id="selectByName" resultType="Admin">
+        select *
+        from ADMIN
+        where name = #{name}
+    </select>
+    <insert id="insert">
+        insert into ADMIN(id, name, pwd, available)
+        values (#{id}, #{name}, #{PWD}, #{AVAILABLE})
+    </insert>
+
+    <update id="update">
+        update ADMIN
+        <set>
+            <if test="name!=null and name!=''">
+                name = #{name},
+            </if>
+            <if test="pwd!=null and pwd!=''">
+                pwd = #{pwd},
+            </if>
+            <if test="available!=null and available!=''">
+                available = #{available},
+            </if>
+            id = #{id}
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+
+</mapper>

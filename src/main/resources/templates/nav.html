@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!--通用导航栏-->
+<div th:fragment="header-common">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">易存取</a>
+                </div>
+            </div>
+
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+
+            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-3">
+                <div th:if="${admin_name}!= null" class="navbar-header">
+                    <span class="navbar-brand" th:text="${' 尊敬的管理员，'+ admin_name+'，您好！' }"> </span>
+                </div>
+                <div th:if="${user}!=null" class="navbar-header">
+                    <span class="navbar-brand" th:text="${' 尊敬的用户 '+ user.getName()}+'，您好！'"> </span>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        </div>
+    </nav>
+</div>
+
+</body>
+
+</html>

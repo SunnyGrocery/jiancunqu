@@ -1,0 +1,26 @@
+.login-jumbotron {
+    border-radius: 20px !important;
+}
+
+.button-right {
+    float: right !important;
+}
+.login-form{
+    padding-right: 45px;
+}
+
+.table-margin {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.my-btn-link {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+.my-btn-del {
+    text-decoration: none;
+    color: white;
+}
