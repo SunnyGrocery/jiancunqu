@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by SunnyGrocery on 2021/1/8 15:23
  */
@@ -25,12 +27,13 @@ public class LoginController {
     }
 
     @RequestMapping({"/info"})
-    public String infoJump(String name, String pwd, Model model) {
+    public String infoJump(String name, String pwd, Model model, HttpSession session) {
         Admin admin = adminService.findByName(name);
         if (admin != null) {
             if (admin.getPwd().equals(pwd)) {
                 model.addAttribute("admin_name", admin.getName());
                 model.addAttribute("user_list", userService.findAll());
+                session.setAttribute("loginUser", name);
                 return "admin_info";
             }
         }
@@ -38,6 +41,7 @@ public class LoginController {
         if (user != null) {
             if (user.getPwd().equals(pwd)) {
                 model.addAttribute("user", user);
+                session.setAttribute("loginUser", name);
                 return "user_info";
             }
 
