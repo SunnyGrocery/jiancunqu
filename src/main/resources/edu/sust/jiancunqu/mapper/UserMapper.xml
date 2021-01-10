@@ -61,16 +61,13 @@
         )
     </insert>
 
-    <update id="update">
+    <update id="update" >
         update user
         <set>
-            <if test="name!=null and name!=''">
-                name = #{name},
+            <if test="phoneNum!=null and phoneNum!=''">
+                phone_num = #{phoneNum},
             </if>
-            <if test="pwd!=null and pwd!=''">
-                pwd = #{pwd},
-            </if>
-            <if test="real_id_num!=null and real_id_num!=''">
+            <if test="realIdNum!=null and realIdNum!=''">
                 real_id_num = #{realIdNum},
             </if>
             <if test="volume!=null and volume!=''">
@@ -79,7 +76,6 @@
             <if test="available!=null and available!=''">
                 available = #{available},
             </if>
-            id = #{id}
         </set>
         where id = #{id}
     </update>

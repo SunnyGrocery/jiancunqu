@@ -19,7 +19,7 @@ public interface AdminMapper {
 
     Admin selectByName(String name);
 
-    Admin insert(Admin admin);
+    void insert(Admin admin);
 
     Admin update(Admin admin);
 

@@ -19,7 +19,7 @@
     </select>
     <insert id="insert">
         insert into ADMIN(id, name, pwd, available)
-        values (#{id}, #{name}, #{PWD}, #{AVAILABLE})
+        values (#{id}, #{name}, #{pwd}, #{available})
     </insert>
 
     <update id="update">

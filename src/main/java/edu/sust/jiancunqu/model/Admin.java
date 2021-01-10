@@ -15,5 +15,5 @@ public class Admin {
     private String id;
     private String name;
     private String pwd;
-    private Integer availableFlag;
+    private Integer available;
 }

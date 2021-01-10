@@ -15,9 +15,9 @@ public interface AdminService {
 
     Admin findByName(String name);
 
-    Admin save(Admin admin);
+    void save(Admin admin);
 
-    Admin change(Admin admin);
+    void change(Admin admin);
 
     void removeById(String id);
 }
