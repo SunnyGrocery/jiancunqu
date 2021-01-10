@@ -21,7 +21,7 @@ public interface FileMapper {
 
     List<File> findByName(String name);
 
-    File insert(File file);
+    void save (File file);
 
     void delete(String id);
 }

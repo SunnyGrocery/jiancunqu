@@ -40,8 +40,8 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File save(File file) {
-        return fileMapper.insert(file);
+    public void save(File file) {
+        fileMapper.save(file);
     }
 
 

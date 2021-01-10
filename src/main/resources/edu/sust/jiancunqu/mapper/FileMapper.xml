@@ -22,9 +22,10 @@
         from File
         where name = #{name}
     </select>
-    <insert id="insert">
-        insert into File(id, file_name, file_size, ptime)
-        values (#{id}, #{fileName}, #{fileSize}, #{ptime})
+
+    <insert id="save" >
+        insert into File( file_name, file_size, ptime ,name, url , share)
+        values ( #{fileName}, #{fileSize}, #{ptime}, #{name} ,#{url} , #{share})
     </insert>
 
 

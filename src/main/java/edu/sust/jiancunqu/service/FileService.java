@@ -17,7 +17,7 @@ public interface FileService {
 
     List<File> findByName(String name);
 
-    File save(File file);
+    void save(File file);
 
     void removeById(String id);
 }
