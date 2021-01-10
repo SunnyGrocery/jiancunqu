@@ -13,6 +13,82 @@
 <!--导航-->
 <div th:replace="~{nav::header-common}"></div>
 
+<div class="row">
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 table-margin">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>文件名</th>
+                <th>文件大小</th>
+                <th>上传时间</th>
+
+                <form  id="upload" action="/upload" method="post" enctype="multipart/form-data">
+
+                    <p>文件上传：<input type="file" name="file"/></p>
+
+                    <input type="submit" value="上传"/>
+
+                </form>
+                <form action="/all_file" method="post">
+
+                    <input type="submit" value="共享文件"/>
+                </form>
+
+
+
+                <script type="text/javascript">
+                    $(function(){
+                        $("#ajaxsub").click(function(){
+                            $("#domeform").ajaxSubmit({
+                                url: "/upload",
+                                type: "POST",
+                                dataType: "json",
+                                success: function (res) {
+                                    //处理成功后的业务逻辑
+                                }
+                            })
+                        })
+                    })
+                </script>
+                <!--
+
+                    <form
+                        action="${pageContext.request.contextPath}/servlet/UploadHandleServlet"
+                        enctype="multipart/form-data" method="post">
+                        上传用户：<input type="text" name="username"><br /> 上传文件1：<input
+                            type="file" name="file1"><br /> 上传文件2：<input type="file"
+                            name="file2"><br /> <input type="submit" value="提交">
+                    </form>
+
+                                <button type="button" id="myButton" th:action="" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+                                    上传
+                                </button>
+
+
+                                <script>
+                                    $('#myButton').on('click', function () {
+                                        var $btn = $(this).button('loading')
+                                        // business logic...
+                                        $btn.button('reset')
+                                    })
+                                </script>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" item : ${file_list}">
+
+                <th th:text="${item.fileName}"></th>
+                <th th:text="${item.fileSize}"></th>
+                <td th:text="${item.ptime}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+</div>
 
 
 

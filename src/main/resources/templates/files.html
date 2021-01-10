@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <title>易存取</title>
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.ss"/>
+    <link rel="stylesheet" href="/css/yicunqu.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--导航-->
+<div th:replace="~{nav::header-common}"></div>
+
+<div class="row">
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 table-margin">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>文件id</th>
+                <th>存储桶名称</th>
+                <th>路径</th>
+                <th></th>
+                <th>上传时间</th>
+                <th>下载</th>
+
+
+
+
+
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" item : ${file_list}">
+
+                <th th:text="${item.owner.id}"></th>
+                <th th:text="${item.bucketName}"></th>
+                <td th:text="${item.objectKey}"></td>
+                <td th:text="${item.objectContent}"></td>
+                <td th:text="${item.metadata.lastModified}"></td>
+                <td th:text="${item.metadata.lastModified}"></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+</div>
+
+
+
+</body>
