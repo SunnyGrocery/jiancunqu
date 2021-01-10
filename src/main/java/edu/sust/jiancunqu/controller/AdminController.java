@@ -45,4 +45,25 @@ public class AdminController {
         userService.change(user);
         return "redirect:/admin/info";
     }
+
+    @PostMapping("/forbid")
+    public String forbidUser(String id, Boolean available) {
+        User user = new User();
+        user.setId(id);
+        user.setAvailable(available);
+        userService.change(user);
+        return "redirect:/admin/info";
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(String id) {
+        userService.removeById(id);
+        return "redirect:/admin/info";
+    }
+
+    @PostMapping("/add")
+    public String addUser(User user) {
+        userService.save(user);
+        return "redirect:/admin/info";
+    }
 }

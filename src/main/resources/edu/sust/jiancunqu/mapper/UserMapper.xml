@@ -73,9 +73,7 @@
             <if test="volume!=null and volume!=''">
                 volume = #{volume},
             </if>
-            <if test="available!=null and available!=''">
                 available = #{available},
-            </if>
         </set>
         where id = #{id}
     </update>

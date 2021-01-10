@@ -33,7 +33,9 @@ class JiancunquApplicationTests {
 
     @Test
     void loadDB() {
-        adminService.save(new Admin("1", "1", "1", 1));
+        adminService.save(new Admin("1", "ROOT", "123456", 1));
+        adminService.save(new Admin("2", "swt", "123456", 1));
+        adminService.save(new Admin("3", "llr", "1", 1));
         User user = new User();
         for (int i = 0; i < 20; i++) {
             String id = getRandomString(2) + "-202001" + randMonth();
@@ -49,12 +51,12 @@ class JiancunquApplicationTests {
     }
 
     public String randMonth() {
-        int first = new Random().nextInt(1);
+        int first = new Random().nextInt(2);
         int second = 1;
         if (first == 1) {
-            second = new Random().nextInt(1) + 1;
+            second = new Random().nextInt(2) + 1;
         } else {
-            second = new Random().nextInt(8) + 1;
+            second = new Random().nextInt(9) + 1;
         }
         return first + Integer.toString(second);
     }
