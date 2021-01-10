@@ -7,11 +7,7 @@
         select *
         from File
     </select>
-    <select id="selectById" resultType="File">
-        select *
-        from File
-        where id = #{id}
-    </select>
+
     <select id="selectByName" resultType="File">
         select *
         from File
@@ -23,17 +19,11 @@
         where name = #{name}
     </select>
 
-    <insert id="save" >
-        insert into File( file_name, file_size, ptime ,name, url , share)
-        values ( #{fileName}, #{fileSize}, #{ptime}, #{name} ,#{url} , #{share})
+    <insert id="save">
+        insert into File(file_name, file_size, ptime, name, url, share)
+        values (#{fileName}, #{fileSize}, #{ptime}, #{name}, #{url}, #{share})
     </insert>
 
-
-    <delete id="delete">
-        delete
-        from file
-        where id = #{id}
-    </delete>
 
 
 </mapper>

@@ -10,7 +10,4 @@ create table file
         primary key (file_name)
 );
 
-create unique index file_ptime_uindex
-    on file (ptime);
-
 

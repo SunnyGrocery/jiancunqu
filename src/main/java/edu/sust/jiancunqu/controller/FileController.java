@@ -8,6 +8,7 @@ import edu.sust.jiancunqu.Utils.BucketObjectUtil;
 import edu.sust.jiancunqu.Utils.ObsUtil;
 import edu.sust.jiancunqu.model.File;
 import edu.sust.jiancunqu.service.FileService;
+import edu.sust.jiancunqu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -28,22 +29,23 @@ import java.util.List;
 public class FileController {
     @Autowired
     private FileService fileService;
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private ObsUtil obsUtil;
 
     @RequestMapping("/upload")
-    public String upLoading(MultipartFile file, HttpServletRequest request,Model model) throws Exception {
+    public String upLoading(MultipartFile file, HttpServletRequest request, Model model) throws Exception {
         //获取文件内容，根据表单中标签的name
         Part part = request.getPart("f");
         String file_name = request.getParameter("file_name");
         file_name = request.getParameter("name") + "_" + file_name;
-        System.out.println("--------------->"+ file_name);
+        System.out.println("--------------->" + file_name);
         String ptime = request.getParameter("file_time");
-        System.out.println("--------------->"+ ptime);
+        System.out.println("--------------->" + ptime);
         SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
         Date date = sf.parse(ptime);
-        System.out.println("----------------->"+ date);
+        System.out.println("----------------->" + date);
         String file_size = request.getParameter("file_size");
         String name = request.getParameter("name");
 
@@ -72,14 +74,13 @@ public class FileController {
         file1.setUrl(url);
 
         fileService.save(file1);
-        List<File> file_list = fileService.findAll();
-        model.addAttribute("file_list",file_list);
+        List<File> file_list = fileService.findByName(name);
+        model.addAttribute("file_list", file_list);
         System.out.println(file1);
 
-
+        model.addAttribute("user", userService.findByName(name));
         return "user_info";
     }
-
 
 
     @RequestMapping("/all_file")
@@ -87,7 +88,7 @@ public class FileController {
         ObsClient obsClient = obsUtil.getInstance();
         ObjectListing objectList = obsClient.listObjects("jiancunqu");
         List<ObsObject> list = objectList.getObjects();
-        model.addAttribute("file_list",list);
+        model.addAttribute("file_list", list);
 
         obsClient.close();
         return "files";
@@ -105,17 +106,17 @@ public class FileController {
         response.setContentType("text/html;charset=utf-8");
 
         //通知浏览器以下载的方式打开
-        response.addHeader("Content-Type","application/octet-stream");
-        response.addHeader("Content-Disposition","attachment;filename=" + file_name.substring(file_name.indexOf('_') + 1));
+        response.addHeader("Content-Type", "application/octet-stream");
+        response.addHeader("Content-Disposition", "attachment;filename=" + file_name.substring(file_name.indexOf('_') + 1));
 
         OutputStream out = response.getOutputStream();
 
         InputStream in = file2.getObjectContent();
 
-        byte[] bytes=new byte[1024];
-        int len=0;
-        while ((len=in.read(bytes))!=-1) {
-            out.write(bytes,0,len);
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ((len = in.read(bytes)) != -1) {
+            out.write(bytes, 0, len);
         }
 
     }

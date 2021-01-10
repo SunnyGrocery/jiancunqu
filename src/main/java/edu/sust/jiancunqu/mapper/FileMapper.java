@@ -15,13 +15,9 @@ import java.util.List;
 public interface FileMapper {
     List<File> selectAll();
 
-    File selectById(String id);
-
     List<File> selectByName(String fileName);
 
     List<File> findByName(String name);
 
-    void save (File file);
-
-    void delete(String id);
+    void save(File file);
 }

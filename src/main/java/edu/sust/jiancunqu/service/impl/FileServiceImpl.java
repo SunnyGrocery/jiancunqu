@@ -25,11 +25,6 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File findById(String id) {
-        return fileMapper.selectById(id);
-    }
-
-    @Override
     public List<File> selectByName(String fileName) {
         return fileMapper.selectByName(fileName);
     }
@@ -44,10 +39,4 @@ public class FileServiceImpl implements FileService {
         fileMapper.save(file);
     }
 
-
-
-    @Override
-    public void removeById(String id) {
-        fileMapper.delete(id);
-    }
 }

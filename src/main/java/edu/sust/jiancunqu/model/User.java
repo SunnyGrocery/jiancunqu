@@ -16,6 +16,6 @@ public class User {
     private String phoneNum;
     private String realIdNum;
     private Integer volume;
-    private Boolean available;
+    private Boolean available = true;
 
 }

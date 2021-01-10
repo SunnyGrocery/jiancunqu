@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
-    <title>易存取</title>
+    <title>简存取</title>
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/jiancunqu.js" type="application/javascript"></script>
@@ -13,14 +13,14 @@
 <body>
 <!--导航-->
 <div th:replace="~{nav::header-common}"></div>
-<div class="row">
+<div class="container-fluid">
     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 table-margin">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>序号</th>
-                <th>用户名</th>
+                <th>姓名</th>
                 <th>工号</th>
                 <th>手机号</th>
                 <th>身份证号</th>
@@ -30,11 +30,58 @@
                     <button type="button" class="btn btn-link my-btn-link" data-toggle="modal" data-target="#addModal">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
+                    <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">添加员工</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="idAdd">工号</label>
+                                            <input name="id" type="text" class="form-control" id="idAdd"
+                                                   placeholder="不能为空...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nameAdd">姓名</label>
+                                            <input name="phoneNum" type="text" class="form-control" id="nameAdd"
+                                                   placeholder="不能为空...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pwdAdd">密码</label>
+                                            <input name="pwd" type="password" class="form-control" id="pwdAdd"
+                                                   placeholder="不能为空...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneNumAdd">手机号</label>
+                                            <input name="phoneNum" type="number" class="form-control" id="phoneNumAdd"
+                                                   placeholder="不能为空...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="realIdNumAdd">身份证号</label>
+                                            <input name="realIdNum" type="text" class="form-control"
+                                                   id="realIdNumAdd" placeholder="不能为空...">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button onclick="addPost()" type="button" class="btn btn-primary">确认</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </th>
             </tr>
             </thead>
+
             <tbody>
             <tr th:each=" item : ${user_list}">
+
                 <th th:text="${itemStat.count}"></th>
                 <th th:text="${item.name}"></th>
                 <th th:text="${item.id}"></th>
@@ -45,22 +92,23 @@
                     <!--控制-->
                     <div>
                         <!--修改-->
-                        <button th:onclick="modifyModalDisplay([[${item.id}]],[[${item.name}]],[[${item.phoneNum}]],[[${item.realIdNum}]],[[${item.volume}]])"
-                                type="button"
-                                class="btn btn-link my-btn-link"
-                                data-toggle="modal" data-target="#modifyModal">
+                        <button type="button" class="btn btn-link my-btn-link" data-toggle="modal"
+                                th:data-target="'#modifyModal'+${item.id}">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </button>
                         <!--编辑弹框-->
-                        <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel">
+                        <div
+                                th:id="'modifyModal'+${item.id}"
+                                class="modal fade" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title">编辑用户信息-
+                                            <span th:text="${item.id}"></span>-
                                             <span th:text="${item.name}"></span>
                                         </h4>
                                     </div>
@@ -68,26 +116,106 @@
                                         <form>
                                             <div class="form-group">
                                                 <label for="phoneNumModify">手机号</label>
-                                                <input name="ref" type="text" class="form-control" id="phoneNumModify"
+                                                <input th:id="'phoneNumModify'+${item.id}" th:value="${item.phoneNum}"
+                                                       name="phoneNum" type="number"
+                                                       class="form-control" id="phoneNumModify"
                                                        placeholder="不能为空...">
                                             </div>
                                             <div class="form-group">
                                                 <label for="realIdNumModify">身份证号</label>
-                                                <input name="name" type="text" class="form-control" id="realIdNumModify"
+                                                <input th:id="'realIdNumModify'+${item.id}" th:value="${item.realIdNum}"
+                                                       name="realIdNum"
+                                                       type="text"
+                                                       class="form-control" id="realIdNumModify"
                                                        placeholder="不能为空...">
                                             </div>
                                             <div class="form-group">
-                                                <label for="volumeModify">可用容量</label>
-                                                <input name="origin" type="text" class="form-control" id="volumeModify"
+                                                <label for="volumeModify">可用容量(MB)</label>
+                                                <input th:id="'volumeModify'+${item.id}" th:value="${item.volume}"
+                                                       name="volume"
+                                                       type="number"
+                                                       class="form-control" id="volumeModify"
                                                        placeholder="不能为空...">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button onclick="modifyPost()" type="button" class="btn btn-primary">
+                                        <button th:onclick="modifyPost([[${item.id}]])"
+                                                type="button" class="btn btn-primary">
                                             确认
                                         </button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <!--禁用-->
+                        <button type="button" class="btn btn-link my-btn-link" data-toggle="modal"
+                                th:data-target="'#forbidModal'+${item.id}">
+                            <span th:if="${item.available}" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                            <span th:if="${!item.available}" class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                        </button>
+                        <!--禁用弹框-->
+                        <div class="modal fade" th:id="'forbidModal'+${item.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="forbidModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">警告-
+                                            <span th:text="${item.id}"></span>-
+                                            <span th:text="${item.name}"></span>
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <strong th:if="${item.available}">确认禁用该用户？</strong>
+                                                <strong th:if="${!item.available}">确定启用该用户？</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button th:onclick="forbidPost([[${item.id}]],[[!${item.available}]])"
+                                                class="btn btn-danger" type="button" name="foo"
+                                                th:value="${item.id}">确认
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <!--删除-->
+                        <button type="button" class="btn btn-link my-btn-link" data-toggle="modal"
+                                th:data-target="'#deleteModal'+${item.id}">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                        <!--删除弹框-->
+                        <div class="modal fade" th:id="'deleteModal'+${item.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="forbidModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">警告-删除-
+                                            <span th:text="${item.id}"></span>-
+                                            <span th:text="${item.name}"></span>
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <strong>确认删除该用户？操作不可撤销！</strong>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button th:onclick="deletePost([[${item.id}]])" class="btn btn-danger"
+                                                type="button" name="foo">确认
+                                        </button>
                                     </div>
                                 </div>
                             </div>

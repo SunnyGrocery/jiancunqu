@@ -11,13 +11,10 @@ import java.util.List;
 public interface FileService {
     List<File> findAll();
 
-    File findById(String id);
 
     List<File> selectByName(String fileName);
 
     List<File> findByName(String name);
 
     void save(File file);
-
-    void removeById(String id);
 }
