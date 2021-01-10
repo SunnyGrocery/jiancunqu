@@ -33,7 +33,7 @@ class JiancunquApplicationTests {
 
     @Test
     void loadDB() {
-      //  adminService.save(new Admin("1", "1", "1", 1));
+        adminService.save(new Admin("1", "1", "1", 1));
         User user = new User();
         for (int i = 0; i < 20; i++) {
             String id = getRandomString(2) + "-202001" + randMonth();
@@ -42,6 +42,7 @@ class JiancunquApplicationTests {
             user.setPwd(MD5Encoder.encode(id.getBytes()));
             user.setPhoneNum(ChineseMobileNumberGenerator.getInstance().generate());
             user.setRealIdNum(ChineseIDCardNumberGenerator.getInstance().generate());
+            user.setPwd("123456");
             user.setAvailable(true);
             userService.save(user);
         }

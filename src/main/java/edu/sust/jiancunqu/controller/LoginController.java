@@ -34,19 +34,19 @@ public class LoginController {
     }
 
     @RequestMapping({"/info"})
-    public String infoJump(String name, String pwd, Model model, HttpServletResponse response) {
-        Admin admin = adminService.findByName(name);
+    public String infoJump(String id, String pwd, Model model, HttpServletResponse response) {
+        Admin admin = adminService.findById(id);
         if (admin != null) {
             if (admin.getPwd().equals(pwd)) {
-                response.addCookie(new Cookie("loginUser", name));
+                response.addCookie(new Cookie("loginUser", id));
                 return "redirect:/admin/info";
             }
         }
-        User user = userService.findByName(name);
+        User user = userService.findById(id);
 
         if (user != null) {
             if (user.getPwd().equals(pwd)) {
-                response.addCookie(new Cookie("loginUser", name));
+                response.addCookie(new Cookie("loginUser", id));
                 model.addAttribute("user", user);
                 List<File> fileList = fileService.findByName(user.getName());
                 model.addAttribute("file_list",fileList);
