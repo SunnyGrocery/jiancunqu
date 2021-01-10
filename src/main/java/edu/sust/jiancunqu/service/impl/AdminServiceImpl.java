@@ -33,13 +33,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin save(Admin admin) {
-        return adminMapper.insert(admin);
+    public void save(Admin admin) {
+        adminMapper.insert(admin);
     }
 
     @Override
-    public Admin change(Admin admin) {
-        return adminMapper.update(admin);
+    public void change(Admin admin) {
+        adminMapper.update(admin);
     }
 
     @Override

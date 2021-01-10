@@ -16,7 +16,7 @@ public interface UserService {
 
     void save(User user);
 
-    User change(User user);
+    void change(User user);
 
     void removeById(String id);
 }
