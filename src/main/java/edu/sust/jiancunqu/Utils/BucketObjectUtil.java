@@ -86,7 +86,7 @@ public class BucketObjectUtil {
 	public String preview(String objectKey) throws IOException {
 		ObsClient obsClient = getInstance();
 		// 300 有效时间
-		TemporarySignatureRequest request = new TemporarySignatureRequest(HttpMethodEnum.GET, 300);
+		TemporarySignatureRequest request = new TemporarySignatureRequest(HttpMethodEnum.GET, 10000000);
 		request.setBucketName(bucketName);
 		request.setObjectKey(objectKey);
 		TemporarySignatureResponse response = obsClient.createTemporarySignature(request);

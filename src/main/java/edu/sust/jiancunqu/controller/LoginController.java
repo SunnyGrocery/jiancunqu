@@ -36,11 +36,12 @@ public class LoginController {
     }
 
     @RequestMapping({"/info"})
-    public String infoJump(String id, String pwd, Model model, HttpServletResponse response) {
+    public String infoJump(String id, String pwd, Model model, HttpServletResponse response ,HttpSession session) {
         Admin admin = adminService.findById(id);
         if (admin != null) {
             if (admin.getPwd().equals(pwd)) {
                 response.addCookie(new Cookie("loginUser", id));
+                session.setAttribute("admin",admin);
                 return "redirect:/admin/info";
             }
         }
@@ -52,6 +53,7 @@ public class LoginController {
                 model.addAttribute("user", user);
                 List<File> fileList = fileService.findByName(user.getName());
                 model.addAttribute("file_list", fileList);
+                session.setAttribute("user",user);
                 return "user_info";
             }
         }

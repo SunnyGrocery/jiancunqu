@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -36,6 +37,8 @@ public class FileController {
 
     @RequestMapping("/upload")
     public String upLoading(MultipartFile file, HttpServletRequest request, Model model) throws Exception {
+
+        model.addAttribute("user",request.getSession().getAttribute("user"));
         //获取文件内容，根据表单中标签的name
         Part part = request.getPart("f");
         String file_name = request.getParameter("file_name");
@@ -83,23 +86,13 @@ public class FileController {
     }
 
 
-    @RequestMapping("/all_file")
-    public String allFile(Model model) throws IOException {
-        ObsClient obsClient = obsUtil.getInstance();
-        ObjectListing objectList = obsClient.listObjects("jiancunqu");
-        List<ObsObject> list = objectList.getObjects();
-        model.addAttribute("file_list", list);
-
-        obsClient.close();
-        return "files";
-    }
 
     //download
     @RequestMapping("/download")
-    public void downLoad(String file_name, HttpServletResponse response) throws IOException {
+    public void downLoad(String file_name, HttpServletResponse response,Model model,HttpServletRequest request) throws IOException {
         //String file_name = request.getParameter("file_name");
         //file_name = request.getParameter("name") + "_" + file_name;
-
+        model.addAttribute("user",request.getSession().getAttribute("user"));
         BucketObjectUtil objectUtil = new BucketObjectUtil();
         ObsObject file2 = objectUtil.getFile(file_name);
 
@@ -120,6 +113,46 @@ public class FileController {
         }
 
     }
+    @RequestMapping("/share")
+    public String   share(String file_name,  Model model, HttpServletRequest request) throws IOException {
+        model.addAttribute("user",request.getSession().getAttribute("user"));
+        File file = fileService.selectByName(file_name);
+        file.setShare(1);
+        fileService.update(file);
+        System.out.println(file);
+        model.addAttribute("share", "已分享");
+        List<File> file_list = fileService.findByName(file.getName());
+        model.addAttribute("file_list", file_list);
+
+        System.out.println("分享完毕");
+        return "user_info";
+
+    }
+
+    @RequestMapping("/shareFile")
+    public String  shareFile( Model model, HttpServletRequest request) throws IOException {
+        model.addAttribute("user",request.getSession().getAttribute("user"));
+        List<File> file_list = fileService.shareFile(1);
+        model.addAttribute("file_list", file_list);
+
+        return "share";
+    }
+
+
+
+    @RequestMapping("/delete")
+    public String  deleteFile( String file_name,Model model, HttpServletRequest request) throws IOException {
+        model.addAttribute("user",request.getSession().getAttribute("user"));
+        File file = fileService.selectByName(file_name);
+        fileService.delete(file_name);
+        List<File> file_list = fileService.findByName(file.getName());
+        model.addAttribute("file_list", file_list);
+
+
+        System.out.println("删除完毕");
+        return "user_info";
+    }
+
 
 }
 

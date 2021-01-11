@@ -19,11 +19,43 @@
         where name = #{name}
     </select>
 
+    <select id="shareFile" resultType="File">
+        select *
+        from File
+        where SHARE = #{share}
+    </select>
     <insert id="save">
         insert into File(file_name, file_size, ptime, name, url, share)
         values (#{fileName}, #{fileSize}, #{ptime}, #{name}, #{url}, #{share})
     </insert>
 
 
+    <delete id="delete">
+        delete
+        from FILE
+        where file_name = #{fileName}
+    </delete>
+
+    <update id="update" >
+        update FILE
+        <set>
+            <if test="fileName!=null and fileName!=''">
+                file_Name = #{fileName},
+            </if>
+            <if test="fileSize!=null and fileSize!=''">
+                file_size = #{fileSize},
+            </if>
+                ptime = #{ptime},
+
+            <if test="name!=null and name!=''">
+                name = #{name},
+            </if>
+            <if test="url!=null and url!=''">
+                url = #{url},
+            </if>
+            share = #{share},
+        </set>
+        where  file_name = #{fileName}
+    </update>
 
 </mapper>

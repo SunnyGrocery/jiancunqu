@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <title>简存取</title>
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/jiancunqu.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/jiancunqu.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .up_form {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--导航-->
+<div th:replace="~{nav::header-common}"></div>
+
+
+<div class="row">
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 table-margin">
+
+        <script type="text/javascript">
+            function _s() {
+                var f = document.getElementById("f").files;
+
+                //上次修改时间
+                //alert(f[0].lastModifiedDate);
+                var time = document.getElementById("file_time");
+                //time.textContent = f[0].lastModifiedDate.toLocaleString();
+                time.value = f[0].lastModifiedDate.toLocaleDateString();
+
+                //名称
+                //alert(f[0].name);
+                var name = document.getElementById("file_name");
+                //name.textContent = f[0].name;
+                name.value = f[0].name;
+
+                //大小 字节
+                //alert(f[0].size);
+                var size = document.getElementById("file_size");
+                //size.textContent = f[0].size + '字节';
+                size.value = f[0].size;
+
+                var di = document.getElementById("hid");
+                di.hidden = false;
+            }
+
+            function cancel() {
+                var di = document.getElementById("hid");
+                di.hidden = true;
+            }
+        </script>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>文件名</th>
+                <th>文件大小</th>
+                <th>上传时间</th>
+                <th>下载</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each=" item : ${file_list}">
+                <!--<th th:text="${item.fileName}"></th>-->
+
+                <td><a th:href="${item.url}" th:text="${#strings.substring(item.fileName, #strings.indexOf(item.fileName, '_') + 1)}"></a></td>
+
+                <th th:text="${item.fileSize}"></th>
+                <td th:text="${item.ptime}"></td>
+                <td><a th:href="${'/download?file_name=' + item.fileName}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+        <hr/>
+
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+</div>
+
+
+
+</body>

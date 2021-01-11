@@ -4,6 +4,7 @@ import edu.sust.jiancunqu.mapper.AdminMapper;
 import edu.sust.jiancunqu.mapper.FileMapper;
 import edu.sust.jiancunqu.model.Admin;
 import edu.sust.jiancunqu.model.File;
+import edu.sust.jiancunqu.model.User;
 import edu.sust.jiancunqu.service.AdminService;
 import edu.sust.jiancunqu.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<File> selectByName(String fileName) {
+    public File selectByName(String fileName) {
         return fileMapper.selectByName(fileName);
     }
 
@@ -37,6 +38,21 @@ public class FileServiceImpl implements FileService {
     @Override
     public void save(File file) {
         fileMapper.save(file);
+    }
+
+    @Override
+    public List<File> shareFile(Integer share) {
+         return fileMapper.shareFile(share);
+    }
+
+    @Override
+    public void update(File file) {
+        fileMapper.update(file);
+    }
+
+    @Override
+    public void delete(String fileName) {
+        fileMapper.delete(fileName);
     }
 
 }
