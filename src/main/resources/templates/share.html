@@ -73,9 +73,9 @@
 
                 <td><a th:href="${item.url}" th:text="${#strings.substring(item.fileName, #strings.indexOf(item.fileName, '_') + 1)}"></a></td>
 
-                <th th:text="${item.fileSize}"></th>
+                <th th:text="${item.fileSize+ '字节'}"></th>
                 <td th:text="${item.ptime}"></td>
-                <td><a th:href="${'/download?file_name=' + item.fileName}"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span></a></td>
+                <td><a th:href="${'/download?file_name=' + item.fileName}"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></a></td>
             </tr>
             </tbody>
         </table>
